@@ -69,6 +69,7 @@ qa_system_prompt = """You are an assistant for question-answering tasks. \
 Use the following pieces of retrieved context to answer the question. \
 If you don't know the answer, just say that you don't know. \
 Use three sentences maximum and keep the answer concise.\
+
 """
 qa_prompt = ChatPromptTemplate.from_messages(
     [
@@ -77,7 +78,7 @@ qa_prompt = ChatPromptTemplate.from_messages(
         ("human", "{input}"),
     ]
 )
-question_answer_chain = LLMChain(llm=llm, prompt=qa_prompt)
+question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
 rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
 
@@ -93,18 +94,15 @@ conversational_rag_chain = RunnableWithMessageHistory(
 
 
 def get_response(prompt):
-    answer_chunks = []
     citation_chunks = None
     for chunk in conversational_rag_chain.stream(
         {"input": prompt}, config={"configurable": {"session_id": "any"}}
     ):
         if "answer" in chunk:
-            answer_chunks.append(chunk["answer"]["text"])
+            yield chunk["answer"]
         if "context" in chunk:
             citation_chunks = chunk["context"]
-            
-    for answer_chunk in answer_chunks:
-        yield answer_chunk
+
     if citation_chunks:
         yield format_citations(citation_chunks)
 
@@ -127,8 +125,12 @@ for msg in msgs.messages:
 
 if prompt := st.chat_input():
     st.chat_message("user").write(prompt)
-    msgs.add_user_message(prompt)
 
     with st.chat_message("assistant"):
         response = st.write_stream(get_response(prompt=prompt))
-        msgs.add_ai_message(response[0])
+    if type(response) == str:
+        if response not in msgs.messages[-1].content:
+            msgs.add_ai_message(response)
+    else: # we only take the message but remove any contexts 
+        if response[0] not in msgs.messages[-1].content:
+            msgs.add_ai_message(response[0])
