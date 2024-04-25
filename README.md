@@ -8,8 +8,8 @@ First things first, let's setup your system.
 ```bash
 git clone git@github.com:iptch/2024-04-vis-workshop-rag.git
 cd 2024-04-vis-workshop-rag
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
