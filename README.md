@@ -17,9 +17,9 @@ pip install -r requirements.txt
 Create a `.env` file and add the following variables
 ````
 OPENAI_API_VERSION=2023-05-15
-AZURE_OPENAI_ENDPOINT=https://oai-vis-workshop-genai-chn-001.openai.azure.com/
+AZURE_OPENAI_ENDPOINT=https://oai-vis-workshop-genai-chn-001.openai.azure.com
 AZURE_OPENAI_API_KEY=<insert-openai-key>
-AZURE_SEARCH_ENDPOINT=https://srch-vis-workshop-genai-chn-001.search.windows.net
+AZURE_SEARCH_ENDPOINT=https://srch-vis-workshop-genai-chn-002.search.windows.net
 AZURE_SEARCH_KEY=<insert-search-api-key>
 AZURE_SEARCH_INDEX=<insert-your-index-name-of-choice>
 AZURE_EMBEDDING_MODEL=text-embedding-ada-002
