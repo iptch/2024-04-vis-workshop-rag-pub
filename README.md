@@ -53,7 +53,7 @@ Then run
 python data-ingestion/create_your_index.py
 ````
 
-This is uploaded to Azure Sandbox and you should find your newly created index [here](https://portal.azure.com/#@ipt.ch/resource/subscriptions/da12d467-03ae-4675-aa29-d3b26fdbd2cc/resourceGroups/rg-vis-genai-workshop-chn-01/providers/Microsoft.Search/searchServices/srch-vis-workshop-genai-chn-001/indexes).
+This is uploaded to Azure Sandbox and you should find your newly created index. Ask us if it worked ;) 
 
 **b. chunk data**
 
@@ -66,11 +66,19 @@ To upload document chunks to the search index, run
 python data-ingestion/run_ingestion.py
 ````
 
-You can check your chunks in your search index [here](https://portal.azure.com/#@ipt.ch/resource/subscriptions/da12d467-03ae-4675-aa29-d3b26fdbd2cc/resourceGroups/rg-vis-genai-workshop-chn-01/providers/Microsoft.Search/searchServices/srch-vis-workshop-genai-chn-001/indexes). To see the document chunks, you need to click "search".
+Check out our index and the chunked documents with 
+````bash
+python data-ingestion/get_index_chunks.py
+````
+
+Currently you just upload chunks to the index. If the key is the same it gets updated, otherwise it is added. To delete your index, use
+````bash
+python data-ingestion/delete_index.py
+````
 
 **d. add your own data**
 
-To upload your own data, insert your pdf files of choice to the folder `data-ingestion/data` and rerun step c.
+To upload your own data, insert your pdf files of choice to the folder `data-ingestion/data` and rerun step b and c.
 
 ### 2.2 Data Retrieval
 Here, we have a closer look in the retrieval step, where we retrieve the relevant documents for answering the question solely based on a search. Investigate what the effect is if you change the maximal number of documents (parameter `k`) as well as compare different search methods (e.g. keyword search vs. vector search). 
