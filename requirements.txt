@@ -11,3 +11,4 @@ azure-core
 azure-search-documents 
 azure-identity
 pdfminer.six
+pypdf
