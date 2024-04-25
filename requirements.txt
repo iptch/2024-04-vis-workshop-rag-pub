@@ -1,0 +1,13 @@
+openai
+pandas
+streamlit
+python-dotenv
+langchain
+langchain-community
+langchain_openai
+streamlit_code_editor
+st-pages
+azure-core
+azure-search-documents 
+azure-identity
+pdfminer.six
