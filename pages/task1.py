@@ -22,7 +22,7 @@ client = AzureOpenAI(
 # add widgets
 prompt_input = "Ms Holle would like to send 62 invitations for her 70th birthday. She has 17 stamps left. 11 guests live abroad, whose invitations she has to frank with one more stamp. How many more stamps does she need to buy? "
 
-height = [30, 40]
+height = 20
 language = "json"
 wrap = True
 editor_btns = [
