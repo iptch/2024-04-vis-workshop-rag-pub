@@ -54,7 +54,7 @@ prompt_input = (
 
 # code editor
 response_dict = code_editor(
-    prompt_input, height=height, lang="json", buttons=editor_btns
+    prompt_input, height=height, lang="json", buttons=editor_btns, options={"wrap": True}
 )
 output_text = st.markdown("")
 
