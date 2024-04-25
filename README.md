@@ -83,3 +83,4 @@ In this task, you should try to optimize the prompt in such a way, that the answ
 **Task**: Go to `pages/task2.py` and search for `TODO [2.3 Prompt Engineering]`. Again, you can see the results either in the console output or directly in the GUI using  `streamlit run workshop.py`.
 
 ## Bonus: Challenge
+Something seems weird... somehow the retrieved documents are always retrieved. Try to implement the rag so it only cites documents, which are used for the answer. (Hint: Function Calling could be an option, check out langchain documentation)
