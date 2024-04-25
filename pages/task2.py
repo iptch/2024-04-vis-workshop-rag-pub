@@ -1,9 +1,10 @@
 import os
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from langchain_community.vectorstores.azuresearch import AzureSearch
-
+from langchain_core.runnables import RunnablePassthrough
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
@@ -70,8 +71,10 @@ Use the following pieces of retrieved context to answer the question. \
 If you don't know the answer, just say that you don't know. \
 Use three sentences maximum and keep the answer concise.\
 
-{context}
+Question: {input}
+
 """
+
 qa_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", qa_system_prompt),
@@ -79,9 +82,19 @@ qa_prompt = ChatPromptTemplate.from_messages(
         ("human", "{input}"),
     ]
 )
-question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
-rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
+
+
+rag_chain_from_docs = (
+    RunnablePassthrough.assign(context=(lambda x: format_docs(x["context"])))
+    | qa_prompt
+    | llm
+    | StrOutputParser()
+)
+
+rag_chain = create_retrieval_chain(history_aware_retriever, rag_chain_from_docs)
 
 msgs = StreamlitChatMessageHistory(key="chat_history")
 
@@ -102,7 +115,7 @@ def get_response(prompt):
         if "answer" in chunk:
             yield chunk["answer"]
         if "context" in chunk:
-            citation_chunks = chunk["context"]
+            citation_chunks = "" # TODO [Task 2.3 Prompt Engineering] Add Citation to the response"""
 
     if citation_chunks:
         yield format_citations(citation_chunks)

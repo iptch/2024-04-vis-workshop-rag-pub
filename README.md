@@ -75,10 +75,10 @@ To upload your own data, insert your pdf files of choice to the folder `data-ing
 ### 2.2 Data Retrieval
 Here, we have a closer look in the retrieval step, where we retrieve the relevant documents for answering the question solely based on a search. Investigate what the effect is if you change the maximal number of documents (parameter `k`) as well as compare different search methods (e.g. keyword search vs. vector search). 
 
-**Task**: Go to `pages/task2.py` and search for `TODO [2.2 Data Retrieval]`. You can validate your changes in the langchain output in your terminal. You should also see difference in the results in the GUI. Just restart the GUI using `streamlit run workshop.py`.
+**Task**: Go to `pages/task2.py` and search for `TODO [2.2 Data Retrieval]`. Provide Context and add the citation to the result. You can validate your changes in the langchain output in your terminal. You should also see difference in the results in the GUI. Just restart the GUI using `streamlit run workshop.py`.
 
 ### 2.3 Prompt Engineering
-In this task, you should try to optimize the prompt in such a way, that the answer improves with the retrieved contexts. Change the prompt so that the contexts is provided. 
+In this task, you should try to optimize the prompt in such a way, that the answer improves with the retrieved contexts. Change the prompt so that the contexts is provided and therefore the answer is based on the retrieved context ;). If you found it, fix the bug that the retrieved context is shown as citation. I mean we wanna know where the answer comes from, no?
 
 **Task**: Go to `pages/task2.py` and search for `TODO [2.3 Prompt Engineering]`. Again, you can see the results either in the console output or directly in the GUI using  `streamlit run workshop.py`.
 
