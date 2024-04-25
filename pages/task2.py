@@ -101,7 +101,8 @@ def get_response(prompt):
         if "answer" in chunk:
             answer_chunks.append(chunk["answer"]["text"])
         if "context" in chunk:
-
+            citation_chunks = chunk["context"]
+            
     for answer_chunk in answer_chunks:
         yield answer_chunk
     if citation_chunks:
